@@ -15,11 +15,11 @@ const CustomDrawer = (props) => {
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView>
-        <View>
+        <View style={{ padding: 10 }}>
           <Image
-            style={{ width: "100%", height: 70, padding: 10 }}
+            style={{ width: "100%", height: 80 }}
             source={{
-              uri: "https://statics.hacktiv8.com/images/logo/hacktiv8-dark.webp",
+              uri: "https://ik.imagekit.io/nzf8xnvsr/Untitled-1_ezoI1UiCx.png?ik-sdk-version=javascript-1.4.3&updatedAt=1665564241036",
             }}
           />
         </View>

@@ -1,8 +1,18 @@
-import { View, SafeAreaView, TouchableOpacity, Modal } from "react-native";
+import {
+  View,
+  SafeAreaView,
+  TouchableOpacity,
+  Modal,
+  KeyboardAvoidingView,
+} from "react-native";
 import useWindowDimensions from "react-native/Libraries/Utilities/useWindowDimensions";
 import { Ionicons } from "@expo/vector-icons";
 import { ThreadList } from "../Components/ThreadList";
-import { ScrollView } from "react-native-gesture-handler";
+import {
+  ScrollView,
+  TouchableHighlight,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 import { FormThreadAdd } from "../Components/FormThreadAdd";
 import { useEffect, useState } from "react";
 import { ForumDetail } from "../Components/ForumDetail";
@@ -159,13 +169,11 @@ export const ForumScreen = ({ route }) => {
           }}
         />
       </TouchableOpacity>
-      <Modal visible={showForm} animationType={"slide"}>
-        <View>
-          <FormThreadAdd
-            onCloseForm={handleCloseForm}
-            onSubmitThread={handleAddThread}
-          />
-        </View>
+      <Modal visible={showForm} animationType={"slide"} swipeDirection={"left"}>
+        <FormThreadAdd
+          onCloseForm={handleCloseForm}
+          onSubmitThread={handleAddThread}
+        />
       </Modal>
 
       <Modal visible={showDetail} animationType={"slide"}>
