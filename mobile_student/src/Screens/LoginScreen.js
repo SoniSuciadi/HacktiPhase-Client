@@ -164,7 +164,7 @@ export const LoginScreen = ({ navigation }) => {
                 letterSpacing: 3,
               }}
             >
-              Wellcome
+              Welcome
             </Text>
             <Text
               style={{
