@@ -1,9 +1,8 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import { useEffect, useState } from "react";
 import { LoginScreen } from "../Screens/LoginScreen";
 import DrawerNavigation from "./DrawerNavigation";
 
-export const StackNavigation = ({ navigation }) => {
+export const StackNavigation = ({}) => {
   const Stack = createStackNavigator();
   return (
     <Stack.Navigator

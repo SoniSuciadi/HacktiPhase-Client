@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   View,
   Dimensions,
-  Alert,
 } from "react-native";
 import { CameraPreview } from "./CameraPreview";
 import { Camera, CameraType } from "expo-camera";
@@ -16,11 +15,9 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import axios from "axios";
 import { LoadingComponent } from "./LoadingComponent";
-import useWindowDimensions from "react-native/Libraries/Utilities/useWindowDimensions";
 
 export const CameraComponent = ({ startCamera, setStartCamera, onSend }) => {
   const [type, setType] = useState(CameraType.back);
-  const { width, height } = useWindowDimensions();
 
   const [permission, requestPermission] = Camera.useCameraPermissions();
 
@@ -101,7 +98,7 @@ export const CameraComponent = ({ startCamera, setStartCamera, onSend }) => {
     );
   }
   if (loading) {
-    return <LoadingComponent />;
+    return <LoadingComponent marginTop={-100} />;
   }
 
   function toggleCameraType() {

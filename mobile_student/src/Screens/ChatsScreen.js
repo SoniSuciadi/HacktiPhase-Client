@@ -8,11 +8,17 @@ import { GET_CHATS } from "../configs/querys";
 import { LoadingComponent } from "../Components/LoadingComponent";
 import { POST_CHAT } from "../configs/mutation";
 import { io } from "socket.io-client";
-const socket = io("http://localhost:3003/", {
-  transports: ["websocket"],
-});
+import { useFocusEffect } from "@react-navigation/native";
+
+const socket = io(
+  // "https://hacktiphase-chat.herokuapp.com"
+  "http://localhost:3003/",
+  {
+    transports: ["websocket"],
+  }
+);
 export const ChatsScreen = ({ route }) => {
-  const { access_token, id } = route.params;
+  const { access_token, id, setPhase } = route.params;
   const [startCamera, setStartCamera] = useState(false);
   const [messages, setMessages] = useState([]);
   const { data, loading, refetch } = useQuery(GET_CHATS, {
@@ -23,7 +29,6 @@ export const ChatsScreen = ({ route }) => {
     },
   });
   const [handleSend, {}] = useMutation(POST_CHAT);
-
   const handleSendMessage = (chat) => {
     handleSend({
       variables: {
@@ -49,13 +54,13 @@ export const ChatsScreen = ({ route }) => {
       setMessages(data.getChats);
     }
   }, [data]);
-  useEffect(() => {
+  useFocusEffect(() => {
     try {
       refetch({});
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  });
   useEffect(() => {
     socket.on("connect", () => {});
     socket.on("chat message", (obj) => {
@@ -72,8 +77,10 @@ export const ChatsScreen = ({ route }) => {
   }, []);
 
   if (loading) {
-    return <LoadingComponent />;
+    return <LoadingComponent marginTop={-100} />;
   }
+  setPhase(data?.getPhaseBatchByUserId?.Phase?.phase);
+
   return (
     <Fragment>
       {loading ? (

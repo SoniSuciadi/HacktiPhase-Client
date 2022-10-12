@@ -1,18 +1,8 @@
-import {
-  View,
-  SafeAreaView,
-  TouchableOpacity,
-  Modal,
-  KeyboardAvoidingView,
-} from "react-native";
+import { View, SafeAreaView, TouchableOpacity, Modal } from "react-native";
 import useWindowDimensions from "react-native/Libraries/Utilities/useWindowDimensions";
 import { Ionicons } from "@expo/vector-icons";
 import { ThreadList } from "../Components/ThreadList";
-import {
-  ScrollView,
-  TouchableHighlight,
-  TouchableWithoutFeedback,
-} from "react-native-gesture-handler";
+import { ScrollView } from "react-native-gesture-handler";
 import { FormThreadAdd } from "../Components/FormThreadAdd";
 import { useEffect, useState } from "react";
 import { ForumDetail } from "../Components/ForumDetail";
@@ -42,28 +32,35 @@ export const ForumScreen = ({ route }) => {
         access_token: access_token,
       },
     },
-  });
-  const [handleComment, { error: errorr, data: d, loading: l }] = useMutation(
-    ADD_COMMENT,
-    {
-      context: {
-        headers: {
-          access_token: access_token,
-        },
-      },
-      refetchQueries: [
-        {
-          query: GET_THRED_BY_ID,
-          variables: { threadId: id },
-          context: {
-            headers: {
-              access_token: access_token,
-            },
+    refetchQueries: [
+      {
+        query: GET_THREAD,
+        context: {
+          headers: {
+            access_token: access_token,
           },
         },
-      ],
-    }
-  );
+      },
+    ],
+  });
+  const [handleComment, {}] = useMutation(ADD_COMMENT, {
+    context: {
+      headers: {
+        access_token: access_token,
+      },
+    },
+    refetchQueries: [
+      {
+        query: GET_THRED_BY_ID,
+        variables: { threadId: id },
+        context: {
+          headers: {
+            access_token: access_token,
+          },
+        },
+      },
+    ],
+  });
   const {
     data: dataById,
     loading: loadingById,
@@ -84,7 +81,7 @@ export const ForumScreen = ({ route }) => {
       variables: {
         input: {
           comment: inputComment,
-          ThreadId: +thredid, //asdasdasd
+          ThreadId: +thredid,
         },
       },
     });
@@ -100,7 +97,6 @@ export const ForumScreen = ({ route }) => {
         },
       },
     });
-    refetch();
   };
   useEffect(() => {
     refetch();
@@ -108,13 +104,13 @@ export const ForumScreen = ({ route }) => {
 
   useEffect(() => {
     if (data && !loading) {
-      setThread(data.fetchThreads);
+      setThread(data?.fetchThreads);
     }
   }, [data]);
 
   useEffect(() => {
     if (dataById && !loadingById) {
-      setSelectedThred(dataById.fetchThreadById);
+      setSelectedThred(dataById?.fetchThreadById);
     }
   }, [dataById]);
 
@@ -133,12 +129,13 @@ export const ForumScreen = ({ route }) => {
     setShowDetail(false);
   };
   if (loading || loadingById) {
-    return <LoadingComponent />;
+    return <LoadingComponent marginTop={-100} />;
   }
+  
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView>
-        {thread.map((el, i) => (
+        {thread?.map((el, i) => (
           <ThreadList onShowDetail={handleShowDetail} thread={el} key={i} />
         ))}
       </ScrollView>

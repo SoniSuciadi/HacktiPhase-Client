@@ -1,9 +1,7 @@
 import { View, Text, Modal } from "react-native";
-import { Feather } from "@expo/vector-icons";
 import { Foundation } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { useState } from "react";
 import countdown from "countdown";
 
 export const ListAssignment = ({

@@ -1,10 +1,6 @@
 import {
-  SafeAreaView,
   Text,
   View,
-  TouchableOpacity,
-  Image,
-  ImageBackground,
 } from "react-native";
 export const ScoreCard = ({ score }) => {
   return (

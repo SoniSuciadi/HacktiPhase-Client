@@ -146,13 +146,11 @@ export const LoginScreen = ({ navigation }) => {
   }
   return (
     <SafeAreaView>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-      >
+      <KeyboardAvoidingView>
         <ImageBackground
-          style={{ width: width, height: 250 }}
+          style={{ width: width, height: 200 }}
           source={{
-            uri: "https://ik.imagekit.io/nzf8xnvsr/tumlogin_ogsw21o3t.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1665553783720",
+            uri: "https://firebasestorage.googleapis.com/v0/b/hacktivphase.appspot.com/o/tumlogin.jpg?alt=media&token=e970d31b-94bf-4341-945f-31f638de732a",
           }}
         >
           <View style={{ paddingHorizontal: 10, marginTop: 100 }}>
@@ -164,7 +162,7 @@ export const LoginScreen = ({ navigation }) => {
                 letterSpacing: 3,
               }}
             >
-              Welcome
+              Wellcome
             </Text>
             <Text
               style={{

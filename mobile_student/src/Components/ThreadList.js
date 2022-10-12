@@ -1,12 +1,58 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 export const ThreadList = ({ onShowDetail, thread }) => {
+  const convertDate = (tgl) => {
+    var date = new Date(tgl);
+    var tahun = date.getFullYear();
+    var bulan = date.getMonth();
+    var tanggal = date.getDate();
+
+    switch (bulan) {
+      case 0:
+        bulan = "Jan";
+        break;
+      case 1:
+        bulan = "Feb";
+        break;
+      case 2:
+        bulan = "Mar";
+        break;
+      case 3:
+        bulan = "Apr";
+        break;
+      case 4:
+        bulan = "Mei";
+        break;
+      case 5:
+        bulan = "Jun";
+        break;
+      case 6:
+        bulan = "Jul";
+        break;
+      case 7:
+        bulan = "Agt";
+        break;
+      case 8:
+        bulan = "Sep";
+        break;
+      case 9:
+        bulan = "Oct";
+        break;
+      case 10:
+        bulan = "Nov";
+        break;
+      case 11:
+        bulan = "Dec";
+        break;
+    }
+    return `${tanggal}-${bulan}-${tahun}`;
+  };
   return (
     <View
       style={{
         paddingHorizontal: 15,
         paddingVertical: 10,
-        margin: 15,
+        margin: 10,
         borderRadius: 10,
         backgroundColor: "white",
       }}
@@ -20,9 +66,9 @@ export const ThreadList = ({ onShowDetail, thread }) => {
             width: "60%",
           }}
         >
-          {thread.title}
+          {thread?.title}
         </Text>
-        <Text>({new Date(thread.createdAt).toLocaleDateString()})</Text>
+        <Text>{convertDate(thread?.createdAt)}</Text>
       </View>
       <Text style={{ marginTop: 10, textAlign: "justify" }}>
         {thread.content.slice(0, 200)}

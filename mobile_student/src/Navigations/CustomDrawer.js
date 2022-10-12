@@ -38,8 +38,8 @@ const CustomDrawer = (props) => {
                 {
                   text: "OK",
                   onPress: async () => {
-                    navigation.dispatch(StackActions.popToTop());
                     await AsyncStorage.clear();
+                    navigation.dispatch(StackActions.popToTop());
                   },
                 },
               ]);

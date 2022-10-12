@@ -6,19 +6,21 @@ import {
   View,
   Modal,
 } from "react-native";
-import { Fragment, useEffect, useState } from "react";
-import { DetailMateri } from "./DetailMateri";
+import React from "react";
+import { Fragment, useState } from "react";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import { useLazyQuery, useQuery } from "@apollo/client";
-import { GET_BATCH_PHASE, GET_USER } from "../configs/querys";
+import { useQuery } from "@apollo/client";
+import { GET_USER } from "../configs/querys";
 import { LoadingComponent } from "../Components/LoadingComponent";
 import { AssignmentReport } from "../Components/AssignmentReport";
 import { StudentCard } from "./StudentCard";
+import { useFocusEffect } from "@react-navigation/native";
 
 export const HomeScreen = ({ route }) => {
   const { access_token, id } = route.params;
+
   const [showStudentCard, setSowStudentCard] = useState(false);
-  const { data, loading } = useQuery(GET_USER, {
+  const { data, loading, refetch } = useQuery(GET_USER, {
     variables: { userId: id },
     context: {
       headers: {
@@ -26,6 +28,9 @@ export const HomeScreen = ({ route }) => {
       },
     },
   });
+  // useFocusEffect(() => {
+  //   refetch();
+  // });
   const handleCloseStudentCard = () => {
     setSowStudentCard(false);
   };
@@ -33,15 +38,62 @@ export const HomeScreen = ({ route }) => {
     return <LoadingComponent />;
   }
   const getScoreThisPhase = () => {
-    let assignmentThisPhase = data?.getUserScore?.AssignmentDetails.filter(
+    let assignmentThisPhase = data?.getUserScore?.AssignmentDetails?.filter(
       (el) =>
         el?.Assignment?.PhaseId - 1 == data?.getPhaseBatchByUserId?.Phase?.phase
     );
     let total = 0;
-    assignmentThisPhase.forEach((element) => {
+    assignmentThisPhase?.forEach((element) => {
       total += (element.score * element?.Assignment?.scorePercentage) / 100;
     });
     return total;
+  };
+
+  const convertDate = (tgl) => {
+    var date = new Date(tgl);
+    var tahun = date.getFullYear();
+    var bulan = date.getMonth();
+    var tanggal = date.getDate();
+
+    switch (bulan) {
+      case 0:
+        bulan = "Jan";
+        break;
+      case 1:
+        bulan = "Feb";
+        break;
+      case 2:
+        bulan = "Mar";
+        break;
+      case 3:
+        bulan = "Apr";
+        break;
+      case 4:
+        bulan = "Mei";
+        break;
+      case 5:
+        bulan = "Jun";
+        break;
+      case 6:
+        bulan = "Jul";
+        break;
+      case 7:
+        bulan = "Agt";
+        break;
+      case 8:
+        bulan = "Sep";
+        break;
+      case 9:
+        bulan = "Oct";
+        break;
+      case 10:
+        bulan = "Nov";
+        break;
+      case 11:
+        bulan = "Dec";
+        break;
+    }
+    return `${tanggal}-${bulan}-${tahun}`;
   };
 
   return (
@@ -92,7 +144,7 @@ export const HomeScreen = ({ route }) => {
                 }}
                 resizeMode="contain"
                 source={{
-                  uri: "https://firebasestorage.googleapis.com/v0/b/pairproject-e84e8.appspot.com/o/avatardefault.png?alt=media&token=844fc57c-a56b-460b-a88a-1ffb103f5104",
+                  uri: "https://ik.imagekit.io/nzf8xnvsr/avatar_OLsEcmK6V.png?ik-sdk-version=javascript-1.4.3&updatedAt=1665594971173",
                 }}
               />
               <Text
@@ -129,7 +181,7 @@ export const HomeScreen = ({ route }) => {
               }}
             >
               <Text style={{ fontWeight: "bold", marginBottom: 5 }}>
-                Batch {data.getPhaseBatchByUserId.Batch.batchName}
+                Batch {data?.getPhaseBatchByUserId?.Batch?.batchName}
               </Text>
 
               <View
@@ -146,13 +198,8 @@ export const HomeScreen = ({ route }) => {
                     fontWeight: "700",
                   }}
                 >
-                  {new Date(
-                    data.getPhaseBatchByUserId.startedAt
-                  ).toLocaleDateString("id")}{" "}
-                  -{" "}
-                  {new Date(
-                    data.getPhaseBatchByUserId.endAt
-                  ).toLocaleDateString("id")}
+                  {convertDate(data?.getPhaseBatchByUserId?.startedAt)} -{" "}
+                  {convertDate(data?.getPhaseBatchByUserId?.endAt)}
                 </Text>
               </View>
               <Text style={{ marginTop: 10, fontWeight: "bold", fontSize: 15 }}>

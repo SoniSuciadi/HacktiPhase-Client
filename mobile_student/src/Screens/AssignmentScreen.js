@@ -35,7 +35,7 @@ export const AssignmentScreen = ({
     }
   }, [dataJourney]);
 
-  const { height, width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
   return (
     <SafeAreaView style={{}}>
       <View

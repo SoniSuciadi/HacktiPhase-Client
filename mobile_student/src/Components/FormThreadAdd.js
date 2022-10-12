@@ -4,14 +4,10 @@ import {
   Text,
   SafeAreaView,
   TextInput,
-  StyleSheet,
-  Keyboard,
   KeyboardAvoidingView,
 } from "react-native";
 import {
-  ScrollView,
   TouchableOpacity,
-  TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
 import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";

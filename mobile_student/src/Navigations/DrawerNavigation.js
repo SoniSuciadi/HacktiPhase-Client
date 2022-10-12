@@ -1,20 +1,20 @@
-import * as React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { HomeScreen } from "../Screens/HomeScreen";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import CustomDrawer from "./CustomDrawer";
 import { ChatsScreen } from "../Screens/ChatsScreen";
-import { MaterialNavigation, MaterialScreen } from "./MaterialNavigation";
+import { MaterialNavigation } from "./MaterialNavigation";
 import { Entypo } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { DrawerActions } from "@react-navigation/native";
 import { ForumScreen } from "../Screens/ForumScreen";
+import { useState } from "react";
 
 const Drawer = createDrawerNavigator();
 
 export default function DrawerNavigation({ navigation, route }) {
   const { access_token, id } = route.params;
+  const [phase, setPhase] = useState("");
   return (
     <Drawer.Navigator
       useLegacyImplementation={true}
@@ -53,6 +53,7 @@ export default function DrawerNavigation({ navigation, route }) {
         component={HomeScreen}
         initialParams={{ access_token, id }}
         options={{
+          gestureEnabled: false,
           drawerLabel: "Home",
           headerShown: false,
           drawerIcon: (config) => {
@@ -86,9 +87,10 @@ export default function DrawerNavigation({ navigation, route }) {
       <Drawer.Screen
         name="Chat"
         component={ChatsScreen}
-        initialParams={{ access_token, id }}
+        initialParams={{ access_token, id, setPhase }}
         options={{
-          drawerLabel: "Chat",
+          drawerLabel: "Group Class",
+          headerTitle: `Group Phase ${phase}`,
           drawerIcon: (config) => {
             return (
               <Ionicons

@@ -57,6 +57,18 @@ export const GET_CHATS = gql`
       }
       createdAt
     }
+    getPhaseBatchByUserId {
+      startedAt
+      endAt
+      Phase {
+        id
+        phase
+      }
+      Batch {
+        id
+        batchName
+      }
+    }
   }
 `;
 

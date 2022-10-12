@@ -10,10 +10,7 @@ import useWindowDimensions from "react-native/Libraries/Utilities/useWindowDimen
 import { AntDesign } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
 import { ScoreCard } from "../Components/ScoreCard";
-import Constants from "expo-constants";
 
-// You can import from local files
-import DropDownPicker from "react-native-dropdown-picker";
 export const StudentCard = ({
   phaseInformation,
   studentInfromation,
@@ -23,7 +20,7 @@ export const StudentCard = ({
   const { height, width } = useWindowDimensions();
   const averageScore = () => {
     let nilai = 0;
-    userScore.forEach((element) => {
+    userScore?.forEach((element) => {
       nilai += (element?.score * element?.Assignment?.scorePercentage) / 100;
     });
     return nilai / 3;
@@ -105,15 +102,15 @@ export const StudentCard = ({
               resizeMode: "cover",
             }}
             source={{
-              uri: "https://firebasestorage.googleapis.com/v0/b/pairproject-e84e8.appspot.com/o/avatardefault.png?alt=media&token=844fc57c-a56b-460b-a88a-1ffb103f5104",
+              uri: "https://ik.imagekit.io/nzf8xnvsr/avatar_OLsEcmK6V.png?ik-sdk-version=javascript-1.4.3&updatedAt=1665594971173",
             }}
           />
           <View style={{ alignItems: "center" }}>
             <Text style={{ fontSize: 18, fontWeight: "600", marginTop: 5 }}>
-              {studentInfromation.fullName}
+              {studentInfromation?.fullName}
             </Text>
             <Text style={{ fontWeight: "400", marginTop: 5 }}>
-              {phaseInformation.Batch.batchName}
+              {phaseInformation?.Batch?.batchName}
             </Text>
             <Text
               style={{
@@ -168,7 +165,7 @@ export const StudentCard = ({
         }}
       >
         <ScrollView style={{ height: 420 }}>
-          {userScore.map((el, i) => (
+          {userScore?.map((el, i) => (
             <ScoreCard key={i} score={el} />
           ))}
         </ScrollView>

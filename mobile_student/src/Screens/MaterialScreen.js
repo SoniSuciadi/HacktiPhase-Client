@@ -1,14 +1,14 @@
 import { View, Text, Modal } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { Feather } from "@expo/vector-icons";
 import { ListMaterial } from "../Components/ListMaterial";
 import { ListAssignment } from "../Components/ListAssignment";
 import { DetailMateri } from "./DetailMateri";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AssignmentScreen } from "./AssignmentScreen";
-import { useLazyQuery, useQuery } from "@apollo/client";
-import { GET_MATERIAL_BY_WEEK, GET_STUDENT_JOURNEY } from "../configs/querys";
+import { useQuery } from "@apollo/client";
+import { GET_MATERIAL_BY_WEEK } from "../configs/querys";
 import { LoadingComponent } from "../Components/LoadingComponent";
+import { useFocusEffect } from "@react-navigation/native";
 
 export const MaterialScreen = ({ route }) => {
   const { access_token, id } = route.params;
@@ -18,7 +18,7 @@ export const MaterialScreen = ({ route }) => {
   const [materi, setMateri] = useState("");
   const [assignment, setAssignment] = useState({});
 
-  const { data, loading } = useQuery(GET_MATERIAL_BY_WEEK, {
+  const { data, loading, refetch } = useQuery(GET_MATERIAL_BY_WEEK, {
     variables: { week: route.params.week },
     context: {
       headers: {
@@ -27,10 +27,12 @@ export const MaterialScreen = ({ route }) => {
     },
   });
 
+  useFocusEffect(() => {
+    refetch();
+  });
   if (loading) {
-    return <LoadingComponent />;
+    return <LoadingComponent marginTop={-100} />;
   }
-  console.log(data);
 
   const handlerCloseMateri = () => {
     setShowMateri(false);
@@ -66,7 +68,7 @@ export const MaterialScreen = ({ route }) => {
             onShowMateri={handlerShowMateri}
             materi={el}
             key={i}
-            startBatch={data.getPhaseBatchByUserId.startedAt}
+            startBatch={data?.getPhaseBatchByUserId?.startedAt}
           />
         ))}
 
@@ -79,7 +81,7 @@ export const MaterialScreen = ({ route }) => {
           <ListAssignment
             onShowAssignment={handlerShowAssignment}
             assignment={el}
-            startBatch={data.getPhaseBatchByUserId.startedAt}
+            startBatch={data?.getPhaseBatchByUserId?.startedAt}
             key={i}
           />
         ))}

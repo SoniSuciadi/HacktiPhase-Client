@@ -1,4 +1,4 @@
-import { StyleSheet, View, SafeAreaView } from "react-native";
+import { View, SafeAreaView } from "react-native";
 import useWindowDimensions from "react-native/Libraries/Utilities/useWindowDimensions";
 import PDFReader from "rn-pdf-reader-js";
 import { AntDesign } from "@expo/vector-icons";
