@@ -1,10 +1,76 @@
-import { useQuery } from "@apollo/client"
-import { GET_PHASE_BATCH } from "../config/queries"
+import { useMutation, useQuery } from "@apollo/client"
+import Loading from "../components/Loading"
+import { CHANGE_STATUS, GET_PHASE_BATCH, GET_SINGLE_PHASE_BATCH, MIGRATE_STUDENTS } from "../config/queries"
+import Checkbox from "@mui/material/Checkbox";
+import { useEffect, useState } from "react";
 
 export default function Student() {
-    const { loading, error, data } = useQuery(GET_PHASE_BATCH)
-    if (loading) return <div>Loading...</div>
+    const [estudiantes, setEstudiantes] = useState([])
+    const [phaseBatch, setPhaseBatch] = useState('')
+    const { loading, error, data, refetch } = useQuery(GET_SINGLE_PHASE_BATCH)
+    const { loading: loading3, error: error3, data: data3 } = useQuery(GET_PHASE_BATCH)
+    const [changeStatus, { loading: loading2, error: error2 }] = useMutation(CHANGE_STATUS)
+
+    const changeStatusHandler = (id) => {
+        changeStatus({
+            variables: {
+                "changeStatusId": id
+            },
+            options: {
+                fetchPolicy: 'network-only',
+                errorPolicy: 'ignore',
+                awaitRefetchQueries: true
+            },
+        })
+        refetch()
+    }
+
+    useEffect(() => {
+        if (data) setEstudiantes(data.getPhaseBatchByUserId.Users.map(el => el.id))
+    }, [data])
+
+    const [checkedStudents, setCheckedStudents] = useState([]);
+
+    const handleChange1 = (isChecked) => {
+        if (isChecked)
+            return setCheckedStudents(
+                estudiantes.map((estudiante) => estudiante)
+            );
+        else setCheckedStudents([]);
+    };
+
+    const [migrateStudents, { loading: loading4, error: error4 }] = useMutation(MIGRATE_STUDENTS)
+
+    const phaseBatchHandler = (e) => {
+        migrateStudents({
+            variables: {
+                "phaseBatchId": +e.target.value,
+                "users": checkedStudents
+            }
+        })
+        refetch()
+        setCheckedStudents([])
+    }
+
+    const handleChange2 = (isChecked, id) => {
+        const index = checkedStudents.indexOf(id);
+        if (isChecked) return setCheckedStudents((state) => [...state, id]);
+
+        if (!isChecked && index > -1)
+            return setCheckedStudents((state) => {
+                state.splice(index, 1);
+                return JSON.parse(JSON.stringify(state));
+            });
+    };
+
+    if (loading) return <Loading />
     if (error) return <div>{error.message}</div>
+    if (loading2) return <Loading />
+    if (error2) return <div>{error2.message}</div>
+    if (loading3) return <Loading />
+    if (error3) return <div>{error3.message}</div>
+    if (loading4) return <Loading />
+    if (error4) return <div>{error4.message}</div>
     return (
         <div id="main-content"
             className="relative w-full h-full overflow-y-auto bg-gray-50 lg:ml-64 dark:bg-gray-900">
@@ -19,38 +85,17 @@ export default function Student() {
                         <div className="sm:flex">
                             <div
                                 className="items-center hidden mb-3 sm:flex sm:divide-x sm:divide-gray-700 sm:mb-0 dark:divide-gray-700">
-                                <form className="lg:pr-3" action="#" method="GET">
-                                    <label htmlFor="users-search" className="sr-only">Search</label>
-                                    <div className="relative lg:w-32 xl:w-48">
-                                        <input type="text" name="email" id="users-search"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="Search for student" />
-                                    </div>
-                                </form>
-                                <form className="lg:pr-3 lg:pl-3">
-                                    <select id="assignment"
+                                <form className="lg:pr-3">
+                                    <select id="phasebatch"
+                                        onChange={phaseBatchHandler}
+                                        value={phaseBatch}
                                         className="mr-6 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <option selected>Mass change students batch & phase</option>
-                                        <option value="1">HCK 49 Witty Fox Phase 0</option>
-                                        <option value="2">HCK 49 Witty Fox Phase 1</option>
-                                        <option value="3">HCK 49 Witty Fox Phase 2</option>
-                                        <option value="4">HCK 49 Witty Fox Phase 3</option>
-                                        <option value="5">HCK 50 Xenia Fox Phase 0</option>
-                                        <option value="6">HCK 50 Xenia Fox Phase 1</option>
-                                        <option value="7">HCK 50 Xenia Fox Phase 2</option>
-                                        <option value="8">HCK 50 Xenia Fox Phase 3</option>
+                                        <option value="">Mass change students batch & phase</option>
+                                        {data3.getPhaseBatch.map(el =>
+                                            (<option value={el.id} key={el.id}>{el.Batch.batchName} Phase {el.Phase.phase}</option>)
+                                        )}
                                     </select>
                                 </form>
-                                <div className="lg:pr-3 lg:pl-3">
-                                    <button type="button"
-                                        className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-green-700 dark:hover:bg-green-800 dark:focus:ring-green-900">Mass
-                                        change to active</button>
-                                </div>
-                                <div className="lg:pr-3 lg:pl-3">
-                                    <button type="button"
-                                        className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-red-700 dark:hover:bg-red-800 dark:focus:ring-red-900">Mass
-                                        change to inactive</button>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -64,10 +109,17 @@ export default function Student() {
                                         <tr>
                                             <th scope="col" className="p-4">
                                                 <div className="flex items-center">
-                                                    <input id="checkbox-all" aria-describedby="checkbox-1"
-                                                        type="checkbox"
-                                                        className="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600" />
-                                                    <label htmlFor="checkbox-all" className="sr-only">checkbox</label>
+                                                    <Checkbox
+                                                        checked={checkedStudents.length === estudiantes.length}
+                                                        indeterminate={
+                                                            checkedStudents.length !== estudiantes.length &&
+                                                            checkedStudents.length > 0
+                                                        }
+                                                        sx={{
+                                                            color: "#FFFF"
+                                                        }}
+                                                        onChange={(event) => handleChange1(event.target.checked)}
+                                                    />
                                                 </div>
                                             </th>
                                             <th scope="col"
@@ -90,14 +142,22 @@ export default function Student() {
                                     </thead>
                                     <tbody
                                         className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-                                        {data.getPhaseBatch.Users.map(student => {
+                                        {data.getPhaseBatchByUserId.Users.map(student => {
                                             return (
                                                 <tr className="hover:bg-gray-100 dark:hover:bg-gray-700" key={student.id}>
                                                     <td className="w-4 p-4">
                                                         <div className="flex items-center">
-                                                            <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox"
-                                                                className="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600" />
-                                                            <label htmlFor="checkbox-1" className="sr-only">checkbox</label>
+                                                            <Checkbox
+                                                                key={student.id}
+                                                                checked={checkedStudents.includes(student.id)}
+                                                                onChange={(event) =>
+                                                                    handleChange2(event.target.checked, student.id)
+                                                                }
+                                                                sx={{
+                                                                    color: "#FFFF"
+                                                                }}
+                                                                inputProps={{ "aria-label": "controlled" }}
+                                                            />
                                                         </div>
                                                     </td>
                                                     <td className="flex items-center p-4 mr-12 space-x-6 whitespace-nowrap lg:mr-0">
@@ -110,16 +170,18 @@ export default function Student() {
                                                     </td>
                                                     <td
                                                         className="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                        {data.getPhaseBatch.Batch.batchName}</td>
+                                                        {data.getPhaseBatchByUserId.Batch.batchName}</td>
                                                     <td
                                                         className="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                        {data.getPhaseBatch.Phase.phase}</td>
+                                                        {data.getPhaseBatchByUserId.Phase.phase}</td>
                                                     <td
                                                         className="p-4 text-base font-normal text-gray-900 whitespace-nowrap dark:text-white">
-                                                        <label htmlFor="default-toggle"
+                                                        <label
                                                             className="inline-flex relative items-center cursor-pointer">
-                                                            <input type="checkbox" value="" id="default-toggle"
-                                                                className="sr-only peer" checked={student.status === "active"} />
+                                                            <input type="checkbox" checked={student.status === "active"}
+                                                                className="sr-only peer"
+                                                                onChange={() => changeStatusHandler(student.id)}
+                                                            />
                                                             <div
                                                                 className="w-11 h-6 bg-gray-200 rounded-full dark:bg-red-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-red-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-red-600 peer-checked:bg-green-600">
                                                             </div>
@@ -136,7 +198,7 @@ export default function Student() {
                         </div>
                     </div>
                 </div>
-            </main>
-        </div>
+            </main >
+        </div >
     )
 }

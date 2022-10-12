@@ -4,6 +4,7 @@ import Dashboard from "../views/Dashboard";
 import Assignment from "../views/Assignment";
 import Schedule from "../views/Schedule";
 import Student from "../views/Student";
+import Login from "../views/Login";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
         element: <Schedule />,
       },
     ],
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
 ]);
 

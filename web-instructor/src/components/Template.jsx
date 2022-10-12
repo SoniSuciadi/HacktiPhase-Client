@@ -1,9 +1,12 @@
 import { Fragment } from "react";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 
 export default function Template() {
+    if (!localStorage.getItem('access_token')) {
+        <Navigate to={"/login"} />
+    }
     return (
         <Fragment>
             <Navbar />

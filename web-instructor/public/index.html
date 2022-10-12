@@ -15,14 +15,6 @@
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
   <link rel="icon" type="image/png" href="https://statics.hacktiv8.com/images/favicons/favicon-32x32.png">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-
-    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
-  </script>
   <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -48,7 +40,6 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-  <script src="./app.bundle.js"></script>
 </body>
 
 </html>
