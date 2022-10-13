@@ -9,7 +9,7 @@ export default function Student() {
     const [phaseBatch, setPhaseBatch] = useState('')
     const { loading, error, data, refetch } = useQuery(GET_SINGLE_PHASE_BATCH)
     const { loading: loading3, error: error3, data: data3 } = useQuery(GET_PHASE_BATCH)
-    const [changeStatus, { loading: loading2, error: error2 }] = useMutation(CHANGE_STATUS)
+    const [changeStatus, { loading: loading2, error: error2, data: data2 }] = useMutation(CHANGE_STATUS)
 
     const changeStatusHandler = (id) => {
         changeStatus({
@@ -26,9 +26,13 @@ export default function Student() {
     }
 
     useEffect(() => {
-        if (data) setEstudiantes(data.getPhaseBatchByUserId.Users.map(el => el.id))
+        if (data) setEstudiantes(data?.getPhaseBatchByUserId.Users.map(el => el.id))
     }, [data])
 
+    useEffect(() => {
+        refetch()
+    }, [data2])
+    
     const [checkedStudents, setCheckedStudents] = useState([]);
 
     const handleChange1 = (isChecked) => {
@@ -91,7 +95,7 @@ export default function Student() {
                                         value={phaseBatch}
                                         className="mr-6 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                         <option value="">Mass change students batch & phase</option>
-                                        {data3.getPhaseBatch.map(el =>
+                                        {data3?.getPhaseBatch.map(el =>
                                             (<option value={el.id} key={el.id}>{el.Batch.batchName} Phase {el.Phase.phase}</option>)
                                         )}
                                     </select>
@@ -142,7 +146,7 @@ export default function Student() {
                                     </thead>
                                     <tbody
                                         className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-                                        {data.getPhaseBatchByUserId.Users.map(student => {
+                                        {data?.getPhaseBatchByUserId.Users.map(student => {
                                             return (
                                                 <tr className="hover:bg-gray-100 dark:hover:bg-gray-700" key={student.id}>
                                                     <td className="w-4 p-4">

@@ -87,21 +87,21 @@ export default function Schedule() {
                                     </h3>
                                     <time
                                         className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Morning</time>
-                                    {data.getSchedule.Materials.map((material) => {
+                                    {data?.getSchedule?.Materials.map((material) => {
                                         if (material.day === 1 && material.session === 'morning') {
                                             return (<p key={material.id} className="mb-2 text-base font-normal text-gray-500 dark:text-gray-400">{material.title}</p>)
                                         }
                                     })}
                                     <time
                                         className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Afternoon</time>
-                                    {data.getSchedule.Materials.map(material => {
+                                    {data?.getSchedule?.Materials.map(material => {
                                         if (material.day === 1 && material.session === 'afternoon') {
                                             return (<p key={material.id} className="mb-2 text-base font-normal text-gray-500 dark:text-gray-400">{material.title}</p>)
                                         }
                                     })}
                                     <time
                                         className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Assignment</time>
-                                    {data.getSchedule.Assignments.map(assignment => {
+                                    {data?.getSchedule?.Assignments.map(assignment => {
                                         if (assignment.day === 1) {
                                             return (<p key={assignment.id} className="text-base font-normal text-gray-500 dark:text-gray-400">{assignment.title}</p>)
                                         }
@@ -126,21 +126,21 @@ export default function Schedule() {
                                     </h3>
                                     <time
                                         className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Morning</time>
-                                    {data.getSchedule.Materials.map(material => {
+                                    {data?.getSchedule?.Materials.map(material => {
                                         if (material.day === 2 && material.session === 'morning') {
                                             return (<p key={material.id} className="mb-2 text-base font-normal text-gray-500 dark:text-gray-400">{material.title}</p>)
                                         }
                                     })}
                                     <time
                                         className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Afternoon</time>
-                                    {data.getSchedule.Materials.map(material => {
+                                    {data?.getSchedule?.Materials.map(material => {
                                         if (material.day === 2 && material.session === 'afternoon') {
                                             return (<p key={material.id} className="mb-2 text-base font-normal text-gray-500 dark:text-gray-400">{material.title}</p>)
                                         }
                                     })}
                                     <time
                                         className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Assignment</time>
-                                    {data.getSchedule.Assignments.map(assignment => {
+                                    {data?.getSchedule?.Assignments.map(assignment => {
                                         if (assignment.day === 2) {
                                             return (<p key={assignment.id} className="text-base font-normal text-gray-500 dark:text-gray-400">{assignment.title}</p>)
                                         }
@@ -165,21 +165,21 @@ export default function Schedule() {
                                     </h3>
                                     <time
                                         className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Morning</time>
-                                    {data.getSchedule.Materials.map(material => {
+                                    {data?.getSchedule?.Materials.map(material => {
                                         if (material.day === 3 && material.session === 'morning') {
                                             return (<p key={material.id} className="mb-2 text-base font-normal text-gray-500 dark:text-gray-400">{material.title}</p>)
                                         }
                                     })}
                                     <time
                                         className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Afternoon</time>
-                                    {data.getSchedule.Materials.map(material => {
+                                    {data?.getSchedule?.Materials.map(material => {
                                         if (material.day === 3 && material.session === 'afternoon') {
                                             return (<p key={material.id} className="mb-2 text-base font-normal text-gray-500 dark:text-gray-400">{material.title}</p>)
                                         }
                                     })}
                                     <time
                                         className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Assignment</time>
-                                    {data.getSchedule.Assignments.map(assignment => {
+                                    {data?.getSchedule?.Assignments.map(assignment => {
                                         if (assignment.day === 3) {
                                             return (<p key={assignment.id} className="text-base font-normal text-gray-500 dark:text-gray-400">{assignment.title}</p>)
                                         }
@@ -208,21 +208,21 @@ export default function Schedule() {
                                     </h3>
                                     <time
                                         className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Morning</time>
-                                    {data.getSchedule.Materials.map(material => {
+                                    {data?.getSchedule?.Materials.map(material => {
                                         if (material.day === 4 && material.session === 'morning') {
                                             return (<p key={material.id} className="mb-2 text-base font-normal text-gray-500 dark:text-gray-400">{material.title}</p>)
                                         }
                                     })}
                                     <time
                                         className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Afternoon</time>
-                                    {data.getSchedule.Materials.map(material => {
+                                    {data?.getSchedule?.Materials.map(material => {
                                         if (material.day === 4 && material.session === 'afternoon') {
                                             return (<p key={material.id} className="mb-2 text-base font-normal text-gray-500 dark:text-gray-400">{material.title}</p>)
                                         }
                                     })}
                                     <time
                                         className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Assignment</time>
-                                    {data.getSchedule.Assignments.map(assignment => {
+                                    {data?.getSchedule?.Assignments.map(assignment => {
                                         if (assignment.day === 4) {
                                             return (<p key={assignment.id} className="text-base font-normal text-gray-500 dark:text-gray-400">{assignment.title}</p>)
                                         }
@@ -247,21 +247,21 @@ export default function Schedule() {
                                     </h3>
                                     <time
                                         className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Morning</time>
-                                    {data.getSchedule.Materials.map(material => {
+                                    {data?.getSchedule?.Materials.map(material => {
                                         if (material.day === 5 && material.session === 'morning') {
                                             return (<p key={material.id} className="mb-2 text-base font-normal text-gray-500 dark:text-gray-400">{material.title}</p>)
                                         }
                                     })}
                                     <time
                                         className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Afternoon</time>
-                                    {data.getSchedule.Materials.map(material => {
+                                    {data?.getSchedule?.Materials.map(material => {
                                         if (material.day === 5 && material.session === 'afternoon') {
                                             return (<p key={material.id} className="mb-2 text-base font-normal text-gray-500 dark:text-gray-400">{material.title}</p>)
                                         }
                                     })}
                                     <time
                                         className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Assignment</time>
-                                    {data.getSchedule.Assignments.map(assignment => {
+                                    {data?.getSchedule?.Assignments.map(assignment => {
                                         if (assignment.day === 5) {
                                             return (<p key={assignment.id} className="text-base font-normal text-gray-500 dark:text-gray-400">{assignment.title}</p>)
                                         }
@@ -286,21 +286,21 @@ export default function Schedule() {
                                     </h3>
                                     <time
                                         className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Morning</time>
-                                    {data.getSchedule.Materials.map(material => {
+                                    {data?.getSchedule?.Materials.map(material => {
                                         if (material.day === 6 && material.session === 'morning') {
                                             return (<p key={material.id} className="mb-2 text-base font-normal text-gray-500 dark:text-gray-400">{material.title}</p>)
                                         }
                                     })}
                                     <time
                                         className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Afternoon</time>
-                                    {data.getSchedule.Materials.map(material => {
+                                    {data?.getSchedule?.Materials.map(material => {
                                         if (material.day === 6 && material.session === 'afternoon') {
                                             return (<p key={material.id} className="mb-2 text-base font-normal text-gray-500 dark:text-gray-400">{material.title}</p>)
                                         }
                                     })}
                                     <time
                                         className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Assignment</time>
-                                    {data.getSchedule.Assignments.map(assignment => {
+                                    {data?.getSchedule?.Assignments.map(assignment => {
                                         if (assignment.day === 6) {
                                             return (<p key={assignment.id} className="text-base font-normal text-gray-500 dark:text-gray-400">{assignment.title}</p>)
                                         }

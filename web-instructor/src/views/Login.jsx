@@ -1,16 +1,29 @@
 import { useMutation } from "@apollo/client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
 import { LOGIN } from "../config/queries";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login() {
+  const notify = () => toast("Wow so easy !");
+  const [loginHandler, { data, loading, error }] = useMutation(LOGIN);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (data?.login?.access_token) {
+      localStorage.setItem("access_token", data.login.access_token);
+      toast.success('Success Notification !', {
+        position: toast.POSITION.TOP_RIGHT
+    });
+      navigate("/");
+    }
+  }, [loading, error, data])
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
-  const navigate = useNavigate();
-  const [loginHandler, { data, loading, error }] = useMutation(LOGIN);
   const handleLogin = (e) => {
     e.preventDefault();
     loginHandler({
@@ -25,22 +38,21 @@ export default function Login() {
       ...user,
       [name]: e.target.value,
     });
+    
   };
-  if (localStorage.getItem("access_token")) {
-    <Navigate to={"/"} />;
-  }
-  if (loading) return <Loading />;
+  
+  // if (localStorage.getItem("access_token")) {
+  //   <Navigate to={"/"} />;
+  // }
+  if (loading) return <Loading />
   if (error) return <div>{error.message}</div>;
-  if (data?.login?.access_token) {
-    localStorage.setItem("access_token", data.login.access_token);
-    navigate("/");
-  }
   return (
     <section className="bg-[url('https://flowbite.s3.amazonaws.com/blocks/marketing-ui/authentication/background.jpg')] bg-no-repeat bg-cover bg-center bg-gray-700 bg-blend-multiply bg-opacity-60">
+      <ToastContainer />
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen pt:mt-0">
         <img
           className="w-96 mb-4"
-          src="https://statics.hacktiv8.com/images/logo/hacktiv8-light.webp"
+          src="https://cdn.discordapp.com/attachments/999583052097388684/1029987612754186311/hacktiphase_w.png"
           alt="logo"
         />
         <div className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800">
@@ -48,6 +60,7 @@ export default function Login() {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-center text-gray-900 md:text-2xl dark:text-white">
               Sign in to your account
             </h1>
+            
             <form className="space-y-4 md:space-y-6" onSubmit={handleLogin}>
               <div>
                 <label
@@ -63,7 +76,7 @@ export default function Login() {
                   name="email"
                   id="email"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-                  placeholder="name@company.com"
+                  placeholder="Email"
                   required=""
                 />
               </div>

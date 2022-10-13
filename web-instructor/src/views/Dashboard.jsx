@@ -34,7 +34,7 @@ export default function Dashboard() {
                                             className="flex items-center mb-1 text-lg font-semibold text-gray-900 dark:text-white">
                                             Morning
                                         </h3>
-                                        {data.getLectureToday.Phase.Materials.map(el =>
+                                        {data.getLectureToday?.Phase.Materials.map(el =>
                                             el.session === "morning" &&
                                             <Fragment>
                                                 <p className="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">{el.title}</p>
@@ -64,7 +64,7 @@ export default function Dashboard() {
                                             </svg>
                                         </span>
                                         <h3 className="mb-1 text-lg font-semibold text-gray-900 dark:text-white">Afternoon</h3>
-                                        {data.getLectureToday.Phase.Materials.map(el =>
+                                        {data.getLectureToday?.Phase.Materials.map(el =>
                                             el.session === "afternoon" &&
                                             <Fragment>
                                                 <p className="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">{el.title}</p>
@@ -94,7 +94,7 @@ export default function Dashboard() {
                                             </svg>
                                         </span>
                                         <h3 className="mb-1 text-lg font-semibold text-gray-900 dark:text-white">Assignment</h3>
-                                        {data.getLectureToday.Phase.Assignments.map(el =>
+                                        {data.getLectureToday?.Phase.Assignments.map(el =>
                                             <p className="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">{el.title}</p>
                                         )}
                                     </li>

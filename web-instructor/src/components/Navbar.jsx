@@ -18,7 +18,7 @@ export default function Navbar() {
                     <div className="flex justify-start items-center">
                         <a href="#" className="flex mr-14">
                             <img
-                                src="https://statics.hacktiv8.com/images/logo/hacktiv8-light.webp"
+                                src="https://cdn.discordapp.com/attachments/999583052097388684/1029987612754186311/hacktiphase_w.png"
                                 className="ml-3 mr-3 h-8"
                                 alt="FlowBite Logo"
                             />
@@ -53,21 +53,21 @@ export default function Navbar() {
                                 </button>
                             </div>
 
-                            {userMenu && <div className="z-50 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600 block" id="dropdown-2" data-popper-placement="bottom"
+                            {userMenu && <div className="absolute top-0 right-0 z-50 mr-4 my-16 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600 block" id="dropdown-2" data-popper-placement="bottom"
                                 style={{
-                                    position: "absolute",
-                                    inset: "0px auto auto 0px",
-                                    margin: "0px",
-                                    transform: "translate3d(1301px, 63px, 0px)",
+                                    // position: "absolute",
+                                    // inset: "0px auto auto 0px",
+                                    // margin: "0px",
+                                    // transform: "translate3d(1301px, 63px, 0px)",
                                 }}
                             >
 
                                 <div className="py-3 px-4" role="none">
                                     <p className="text-sm text-gray-900 dark:text-white" role="none">
-                                        Instructor Name
+                                        Ajat Darojat
                                     </p>
                                     <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                                        instructor@mail.com
+                                        admin@gmail.com
                                     </p>
                                 </div>
                                 <ul className="py-1" role="none">

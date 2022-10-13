@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, redirect } from "react-router-dom";
 import Template from "../components/Template";
 import Dashboard from "../views/Dashboard";
 import Assignment from "../views/Assignment";
@@ -10,6 +10,11 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Template />,
+    loader: async () => {
+      if (!localStorage.getItem("access_token")) {
+        return redirect("/login");
+      }
+    },
     children: [
       {
         path: "",
@@ -32,6 +37,11 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+    loader: async () => {
+      if (localStorage.getItem("access_token")) {
+        return redirect("/");
+      }
+    },
   },
 ]);
 
